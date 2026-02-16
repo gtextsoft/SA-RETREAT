@@ -303,7 +303,57 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 // Add reveal attributes to sections dynamically for cleaner HTML
-document.querySelectorAll('section, .retreat-card, .feature-card, .testimonial-card').forEach((el, i) => {
+document.querySelectorAll('section, .retreat-card, .bento-card, .why-item, .past-card').forEach((el, i) => {
     el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = `${(i % 6) * 0.08}s`;
     observer.observe(el);
 });
+
+// Animated Stat Counter
+const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+let statsAnimated = false;
+
+const animateStats = () => {
+    if (statsAnimated) return;
+    statsAnimated = true;
+    statNumbers.forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const duration = 2000;
+        const startTime = performance.now();
+
+        const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(target * eased);
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                el.textContent = target;
+            }
+        };
+        requestAnimationFrame(update);
+    });
+};
+
+// Observe hero stats for counter trigger
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) {
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateStats();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    statsObserver.observe(heroStats);
+}
+
+// Duplicate testimonial track for infinite scrolling
+const testimonialTrack = document.getElementById('testimonial-track');
+if (testimonialTrack) {
+    const cards = testimonialTrack.innerHTML;
+    testimonialTrack.innerHTML = cards + cards;
+}
