@@ -1,95 +1,11 @@
-// Retreats Data
-const retreatsData = {
-    'dubai-2026': {
-        title: "Wealth & Investment Tour",
-        location: "Dubai, UAE",
-        date: "April 2026",
-        category: "Investment",
-        description: "The ultimate guide to real estate and business expansion in the Middle East.",
-        fullDetails: {
-            gain: [
-                "Direct access to off-plan real estate deals at developer prices",
-                "Understand the legal framework for business setup in the UAE",
-                "Exclusive networking with Dubai's top billionaire investors",
-                "Personalized investment consultation with Stephen Akintayo"
-            ],
-            forWho: "Serious investors, real estate moguls, and business owners looking to diversify their portfolio into the Middle East.",
-            included: "5-star luxury accommodation, private yacht networking session, VIP desert safari, guided investment tours, all meals during sessions.",
-            link: "#apply"
-        }
-    },
-    'london-2026': {
-        title: "The Global Leader Mastermind",
-        location: "London, UK",
-        date: "July 2026",
-        category: "Mastermind",
-        description: "Scale your influence and operations with top-tier UK-based mentors.",
-        fullDetails: {
-            gain: [
-                "Mastery of global team management and scaling systems",
-                "Strategic insights into the UK financial markets and stock exchange",
-                "High-level branding and positioning strategies for global authority",
-                "One-on-one leadership audit with international mentors"
-            ],
-            forWho: "CEO's, founders of growth-stage startups, and established entrepreneurs seeking global dominance.",
-            included: "Central London premium stay, curated dinners at historic venues, private boardroom sessions, luxury chauffeur services.",
-            link: "#apply"
-        }
-    },
-    'maldives-2026': {
-        title: "Strategic Clarity Retreat",
-        location: "Maldives",
-        date: "Sept 2026",
-        category: "Global Expansion",
-        description: "Unhindered deep work and strategic planning in a luxury paradise.",
-        fullDetails: {
-            gain: [
-                "12-month strategic roadmap for your business and wealth",
-                "Deep-work sessions focused on core product development",
-                "Mental clarity drills and high-performance lifestyle coaching",
-                "Intimate bonding with a tiny cohort of high-net-worth peers"
-            ],
-            forWho: "Visionary leaders who need to step back from the 'daily grind' to work ON their business instead of IN it.",
-            included: "Overwater villa stay, seaplane transfers, private beach brainstorming sessions, holistic wellness program.",
-            link: "#apply"
-        }
-    },
-    'past-dubai': {
-        title: "Dubai 2024: The Investment Blueprint",
-        recap: "A 5-day intensive tour that explored the fastest-growing real estate markets in Dubai, featuring sessions with industry giants.",
-        outcomes: [
-            "Over $12M in total investment commitments made by attendees",
-            "4 multi-national partnerships formed on the final night",
-            "3 attendees successfully incorporated UAE-based branches within 30 days"
-        ],
-        images: ["https://images.unsplash.com/photo-1582653280603-eb5209282302?auto=format&fit=crop&q=80&w=1000", "https://images.unsplash.com/photo-1512453979798-5ea4e73ad94d?auto=format&fit=crop&q=80&w=1000"]
-    },
-    'past-london': {
-        title: "London 2025: Scaling Global",
-        recap: "A high-powered mastermind focused on taking African and emerging market brands to the global stage.",
-        outcomes: [
-            "2 startups secured Series A funding intros",
-            "Comprehensive scaling manual provided to every attendee",
-            "Lifetime mastermind alumni access established"
-        ],
-        images: ["https://images.unsplash.com/photo-1543716627-839b56149544?auto=format&fit=crop&q=80&w=1000", "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=1000"]
-    },
-    'past-usa': {
-        title: "USA Tour 2023: Market Entry",
-        recap: "A multi-city tour through Houston, New York, and DC focusing on real estate and tech partnerships.",
-        outcomes: [
-            "Direct connections to US-based venture capital",
-            "2,000+ total combined years of experience in the room",
-            "A collaborative deal-flow network between US and African investors"
-        ],
-        images: ["https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000", "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000"]
-    }
-};
+// ═══════════════════════════════════════════════════════════════
+// SA EVENTS — App Logic
+// ═══════════════════════════════════════════════════════════════
 
 // Initialize Lucide Icons
 lucide.createIcons();
 
-// Theme Toggle Logic
+// ──────────────── Theme Toggle ────────────────
 const themeToggle = document.getElementById('theme-toggle');
 const root = document.documentElement;
 
@@ -107,7 +23,7 @@ themeToggle.addEventListener('click', () => {
 // Set initial theme
 setTheme(getTheme());
 
-// Header Scroll Effect
+// ──────────────── Header Scroll Effect ────────────────
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -117,7 +33,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Mobile Menu Toggle
+// ──────────────── Mobile Menu Toggle ────────────────
 const mobileToggle = document.getElementById('mobile-toggle');
 const navMenu = document.getElementById('nav-menu');
 
@@ -139,9 +55,10 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Filtering Logic
+// ──────────────── Filtering Logic ────────────────
+// Handles both featured cards and event list rows
 const filterButtons = document.querySelectorAll('.pill');
-const retreatCards = document.querySelectorAll('.retreat-card');
+const eventRows = document.querySelectorAll('.event-row');
 
 filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -151,105 +68,130 @@ filterButtons.forEach(btn => {
 
         const filter = btn.dataset.filter;
 
-        retreatCards.forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-                card.style.display = 'block';
-                setTimeout(() => card.style.opacity = '1', 10);
+        eventRows.forEach(row => {
+            if (filter === 'all' || row.dataset.category === filter) {
+                row.style.display = '';
+                row.style.opacity = '0';
+                setTimeout(() => row.style.opacity = '1', 20);
             } else {
-                card.style.opacity = '0';
-                setTimeout(() => card.style.display = 'none', 300);
+                row.style.opacity = '0';
+                setTimeout(() => row.style.display = 'none', 300);
             }
         });
     });
 });
 
-// Modal Logic
+// ──────────────── Modal Logic ────────────────
 const modal = document.getElementById('retreat-modal');
 const modalBody = document.getElementById('modal-body');
 const modalClose = document.getElementById('modal-close');
 const backdrop = document.querySelector('.modal-backdrop');
 
+// Event details data for modals (featured cards)
+const eventDetails = {
+    'bgc-lagos': {
+        title: "Business Growth Conference — Lagos",
+        location: "Lagos, Nigeria",
+        date: "February 14–15, 2026",
+        category: "Conference",
+        description: "Join the Business Growth Masterclass — a game-changing session for ambitious entrepreneurs. Master proven strategies to scale revenue, streamline operations, and build a thriving brand.",
+        highlights: [
+            "Proven strategies to scale revenue and streamline operations",
+            "World-class speakers including Dr. Stephen Akintayo & industry leaders",
+            "Networking with ambitious entrepreneurs and business owners",
+            "Regular, Executive, and Virtual ticket packages available",
+            "Executive dinner with Dr. Stephen Akintayo (Executive Access)",
+            "Access to Stephen Akintayo University included"
+        ],
+        forWho: "Entrepreneurs, startup founders, business owners, CEOs, sales & marketing professionals ready to scale.",
+        pricing: "Regular: ₦250,000 | Executive: ₦500,000 | Virtual: ₦150,000",
+        link: "https://businessgrowthconference.org/nigeria"
+    },
+    'sales-masterclass': {
+        title: "Sales Masterclass with Dr. Stephen Akintayo",
+        location: "Lagos, Nigeria",
+        date: "January 2026",
+        category: "Masterclass",
+        description: "Sales is not persuasion — it's clarity, structure, and trust. This focused, high-impact masterclass is designed for business owners serious about building profitable businesses, increasing deal flow, and selling with integrity.",
+        highlights: [
+            "How to sell without sounding desperate or aggressive",
+            "Mindset shifts that separate top closers from average sellers",
+            "Structuring conversations that lead naturally to decisions",
+            "Pricing confidence and value positioning",
+            "Building trust before asking for commitment",
+            "Creating repeat buyers and long-term relationships"
+        ],
+        forWho: "Business owners, sales professionals, real estate practitioners, and founders who want predictable revenue.",
+        pricing: "Contact for details",
+        link: "https://stephenakintayo.com/salesmasterclass"
+    },
+    'kenya-retreat': {
+        title: "Corporate Leadership Retreat — Kenya Edition",
+        location: "Kenya, East Africa",
+        date: "September 24–29, 2025",
+        category: "Retreat",
+        description: "A transformational leadership immersion in Kenya for CEOs, Executives & Visionary Teams. Build networks, scale across nations, and tour iconic landscapes while transforming your leadership capabilities.",
+        highlights: [
+            "Week-long intensive leadership transformation",
+            "Strategic vision sessions with international mentors",
+            "Networking with CEOs and executives from multiple countries",
+            "Tour Kenya's most breathtaking landscapes",
+            "Cross-border partnership opportunities",
+            "Practical frameworks for scaling globally"
+        ],
+        forWho: "CEOs, executives, founders, and visionary team leaders seeking to transform their leadership and expand globally.",
+        pricing: "Contact for retreat packages",
+        link: "https://www.stephenakintayo.com/kenyaretreat"
+    }
+};
+
 const openModal = (id) => {
-    const data = retreatsData[id];
+    const data = eventDetails[id];
     if (!data) return;
 
-    let content = '';
+    const content = `
+        <div class="modal-header">
+            <div class="badge-row" style="margin-bottom:1rem"><span style="display:inline-flex;padding:0.3rem 0.8rem;border-radius:9999px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;background:var(--accent-glow);color:var(--accent-primary)">${data.category}</span></div>
+            <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem;font-family:var(--font-heading);letter-spacing:-0.025em">${data.title}</h2>
+            <div style="display:flex;align-items:center;gap:1rem;color:var(--accent-primary);font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em">
+                <span>${data.location}</span>
+                <span style="width:4px;height:4px;border-radius:50%;background:var(--accent-primary)"></span>
+                <span>${data.date}</span>
+            </div>
+        </div>
+        <div>
+            <p style="font-size:1.05rem;line-height:1.75;color:var(--text-secondary);margin:2rem 0">${data.description}</p>
+            
+            <div style="margin-bottom:2.5rem">
+                <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:1.25rem;font-family:var(--font-heading)">What you'll gain</h3>
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:0.85rem">
+                    ${data.highlights.map(item => `
+                        <li style="display:flex;gap:0.75rem;align-items:flex-start">
+                            <i data-lucide="check-circle" style="width:20px;height:20px;color:var(--accent-primary);flex-shrink:0;margin-top:2px"></i> 
+                            <span style="font-size:0.95rem;color:var(--text-secondary);line-height:1.5">${item}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
 
-    if (data.fullDetails) {
-        // Upcoming Retreat Template
-        content = `
-            <div class="modal-header">
-                <div class="badge-row"><span class="badge">${data.category}</span></div>
-                <h2 class="modal-title" style="font-size: 2.25rem; font-weight: 800; margin-bottom: 0.5rem;">${data.title}</h2>
-                <div class="card-meta" style="color: var(--accent-primary); font-weight: 700; font-size: 0.9rem;">
-                    <span>${data.location}</span>
-                    <span class="dot"></span>
-                    <span>${data.date}</span>
+            <div style="padding:1.75rem;background:var(--bg-secondary);border-radius:var(--radius-lg);border:1px solid var(--border-main);margin-bottom:2.5rem">
+                <div style="margin-bottom:1.25rem">
+                    <h4 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem;font-weight:700">Who it's for</h4>
+                    <p style="font-weight:600;color:var(--text-primary);font-size:1rem;line-height:1.6">${data.forWho}</p>
+                </div>
+                <div style="height:1px;background:var(--border-main);margin:1rem 0"></div>
+                <div>
+                    <h4 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem;font-weight:700">Pricing</h4>
+                    <p style="font-size:0.95rem;color:var(--text-secondary);font-weight:500">${data.pricing}</p>
                 </div>
             </div>
-            <div class="modal-body-content">
-                <p class="modal-description" style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 2.5rem;">${data.description}</p>
-                
-                <div class="modal-info-grid" style="display: grid; gap: 2.5rem;">
-                    <div>
-                        <h3 class="modal-sub" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">What you’ll gain</h3>
-                        <ul class="why-list" style="margin-top: 0;">
-                            ${data.fullDetails.gain.map(item => `
-                                <li style="margin-bottom: 1.25rem;">
-                                    <i data-lucide="check-circle" class="check-icon" style="color: var(--accent-primary);"></i> 
-                                    <span style="font-size: 1.05rem; color: var(--text-secondary);">${item}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
 
-                    <div style="padding: 2rem; background-color: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--border-main);">
-                        <h3 class="modal-sub" style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 1rem;">Who it’s for</h3>
-                        <p style="font-weight: 600; color: var(--text-primary); font-size: 1.1rem; line-height: 1.6;">${data.fullDetails.forWho}</p>
-                        
-                        <div style="height: 1px; background-color: var(--border-main); margin: 1.5rem 0;"></div>
-                        
-                        <h3 class="modal-sub" style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 1rem;">What’s included</h3>
-                        <p style="font-size: 0.95rem; color: var(--text-secondary);">${data.fullDetails.included}</p>
-                    </div>
-                </div>
-
-                <div class="modal-footer" style="margin-top: 4rem;">
-                    <a href="${data.fullDetails.link}" class="btn btn-primary btn-large btn-full">Submit Your Application</a>
-                    <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; font-weight: 600;">Applications reviewed within 24–48 hours</p>
-                </div>
+            <div>
+                <a href="${data.link}" target="_blank" class="btn btn-primary btn-large btn-full">Register Now</a>
+                <p style="text-align:center;font-size:0.82rem;color:var(--text-muted);margin-top:0.75rem;font-weight:500">Opens registration page in a new tab</p>
             </div>
-        `;
-    } else {
-        // Past Retreat Template
-        content = `
-            <div class="modal-header">
-                <h2 class="modal-title" style="font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem;">${data.title}</h2>
-            </div>
-            <div class="modal-body-content">
-                <div class="modal-gallery" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 3rem;">
-                    ${data.images.map(img => `<img src="${img}" alt="Gallery image" style="border-radius: 12px; aspect-ratio: 16/10; object-fit: cover; box-shadow: var(--shadow-sm);">`).join('')}
-                </div>
-                <div class="modal-info-grid" style="display: grid; gap: 2.5rem;">
-                    <div>
-                        <h3 class="modal-sub" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem;">Event Recap</h3>
-                        <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary);">${data.recap}</p>
-                    </div>
-                    <div>
-                        <h3 class="modal-sub" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">Key Outcomes</h3>
-                        <ul class="why-list" style="margin-top: 0;">
-                            ${data.outcomes.map(item => `
-                                <li style="margin-bottom: 1.25rem;">
-                                    <i data-lucide="award" class="check-icon" style="color: var(--accent-primary);"></i> 
-                                    <span style="font-size: 1.05rem; color: var(--text-secondary);">${item}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
+        </div>
+    `;
 
     modalBody.innerHTML = content;
     modal.classList.add('active');
@@ -262,21 +204,27 @@ const closeModal = () => {
     document.body.style.overflow = 'auto';
 };
 
-// Event Listeners for Modal
+// Event Listeners for Modal (featured cards)
 document.addEventListener('click', (e) => {
-    if (e.target.closest('.open-modal')) {
+    const outlineBtn = e.target.closest('.retreat-card .btn-outline-sm');
+    if (outlineBtn) {
+        // If it's an actual link (has href with http), let it go through
+        // Otherwise open modal
+        e.preventDefault();
         const card = e.target.closest('.retreat-card');
-        openModal(card.dataset.id);
-    }
-    if (e.target.closest('.past-card')) {
-        openModal(e.target.closest('.past-card').dataset.id);
+        if (card) openModal(card.dataset.id);
     }
 });
 
 modalClose.addEventListener('click', closeModal);
 backdrop.addEventListener('click', closeModal);
 
-// Back to Top Logic
+// Keyboard close
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// ──────────────── Back to Top ────────────────
 const backToTop = document.getElementById('back-to-top');
 
 window.addEventListener('scroll', () => {
@@ -291,9 +239,7 @@ backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Scroll Reveal Animation (Intersection Observer)
-const revealElements = document.querySelectorAll('[data-reveal]');
-
+// ──────────────── Scroll Reveal Animation ────────────────
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -302,14 +248,13 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-// Add reveal attributes to sections dynamically for cleaner HTML
-document.querySelectorAll('section, .retreat-card, .bento-card, .why-item, .past-card').forEach((el, i) => {
+document.querySelectorAll('section, .retreat-card, .bento-card, .why-item, .event-row').forEach((el, i) => {
     el.setAttribute('data-reveal', '');
-    el.style.transitionDelay = `${(i % 6) * 0.08}s`;
+    el.style.transitionDelay = `${(i % 8) * 0.06}s`;
     observer.observe(el);
 });
 
-// Animated Stat Counter
+// ──────────────── Animated Stat Counter ────────────────
 const statNumbers = document.querySelectorAll('.stat-number[data-target]');
 let statsAnimated = false;
 
@@ -324,20 +269,22 @@ const animateStats = () => {
         const update = (currentTime) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            // Ease-out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
-            el.textContent = Math.floor(target * eased);
+
+            const current = Math.floor(target * eased);
+            // Format large numbers with commas
+            el.textContent = current.toLocaleString();
+
             if (progress < 1) {
                 requestAnimationFrame(update);
             } else {
-                el.textContent = target;
+                el.textContent = target.toLocaleString();
             }
         };
         requestAnimationFrame(update);
     });
 };
 
-// Observe hero stats for counter trigger
 const heroStats = document.querySelector('.hero-stats');
 if (heroStats) {
     const statsObserver = new IntersectionObserver((entries) => {
@@ -351,9 +298,14 @@ if (heroStats) {
     statsObserver.observe(heroStats);
 }
 
-// Duplicate testimonial track for infinite scrolling
+// ──────────────── Duplicate Testimonial Track ────────────────
 const testimonialTrack = document.getElementById('testimonial-track');
 if (testimonialTrack) {
     const cards = testimonialTrack.innerHTML;
     testimonialTrack.innerHTML = cards + cards;
 }
+
+// ──────────────── Event Row Opacity Transition ────────────────
+document.querySelectorAll('.event-row').forEach(row => {
+    row.style.transition = 'opacity 0.3s ease, padding 0.3s ease, background 0.3s ease';
+});

@@ -998,6 +998,156 @@ button {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   ALL EVENTS — LIST VIEW
+   ══════════════════════════════════════════════════════════════════ */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.event-row {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-main);
+    transition: var(--t-base);
+}
+
+.event-row:first-child {
+    border-top: 1px solid var(--border-main);
+}
+
+.event-row:hover {
+    padding-left: 1rem;
+    background: var(--bg-secondary);
+    margin: 0 -1rem;
+    padding-right: 1rem;
+    border-radius: var(--radius-md);
+}
+
+/* Date Column */
+.event-date-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+}
+
+.event-month {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-primary);
+}
+
+.event-day {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+/* Info Column */
+.event-info-col {
+    min-width: 0;
+}
+
+.event-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.event-type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-full);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.type-conference {
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+}
+
+[data-theme="dark"] .type-conference {
+    background: rgba(96, 165, 250, 0.12);
+    color: #60a5fa;
+}
+
+.type-retreat {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+
+[data-theme="dark"] .type-retreat {
+    background: rgba(52, 211, 153, 0.12);
+    color: #34d399;
+}
+
+.type-masterclass {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+[data-theme="dark"] .type-masterclass {
+    background: rgba(251, 191, 36, 0.12);
+    color: #fbbf24;
+}
+
+.type-exclusive {
+    background: rgba(124, 58, 237, 0.1);
+    color: #7c3aed;
+}
+
+[data-theme="dark"] .type-exclusive {
+    background: rgba(167, 139, 250, 0.12);
+    color: #a78bfa;
+}
+
+.event-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.event-row-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+}
+
+.event-row-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+/* Action Column */
+.event-action-col {
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
    PAST RETREATS GALLERY
    ══════════════════════════════════════════════════════════════════ */
 .past-grid {
@@ -1716,6 +1866,27 @@ button {
 
     .past-card {
         aspect-ratio: 16 / 10;
+    }
+
+    /* Event rows mobile */
+    .event-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem 0;
+    }
+
+    .event-date-col {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .event-action-col {
+        width: 100%;
+    }
+
+    .event-action-col .btn {
+        width: 100%;
+        justify-content: center;
     }
 
     .section-head-row {
